@@ -17,7 +17,8 @@ run = (name, command, cb) ->
 task 'dev', 'Setup my dev system', () ->
   run 'coffee', '--output lib --watch --compile src'
   run 'coffee', '--output public/javascripts/lib --watch --compile public/javascripts/src'
-  # run 'coffee', '--output routes/lib --watch --compile routes/src'
+  
+  run 'coffee', '--output routes --watch --compile routes'
   # run 'coffee', '--output models/lib --watch --compile models/src'
   # run 'stylus', 'public/stylesheets/style.styl -w'
   run 'supervisor', 'server'

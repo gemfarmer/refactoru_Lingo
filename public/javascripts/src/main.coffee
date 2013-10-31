@@ -1,35 +1,54 @@
 $ ->
 
-	findLangFrom = () ->
-		$('.lang-from').on 'change', () ->
-		console.log("this value:", this.value)
-		console.log("this", this)
-		return this.value
+	toL = "eng"
+	fromL = "eng"
 
-	findLangTo = () ->
-		$('.lang-to').on 'change', () ->
-		console.log("this value:", this.value)
-		console.log("this", this)
-		return this.value
-
-	$('#translation-form').on 'click', '.submit-btn',(e) ->
-		e.preventDefault()
-		console.log("clicked")
-		info = 
-			{
-				text: $('#translation-form').serialize()
-				from: 'eng', 
-				to: 'fra'
-			}
-		$('#translation-form').each () ->
-			this.reset();
-			return
-		console.log(info)
-		$.post '/translate', info, (data) ->
-			console.log(data.serverData)
-			$('#translation-repo').text(data.serverData.translation)
-
+	$('.lang-from').on 'change', () ->
+		fromL = this.value
 		return
+
+	$('.lang-to').on 'change', () ->
+		toL = this.value
+		return
+
+	addTranslator = () ->
+		$('#translation-form').on 'click', '.submit-btn', (e) ->
+			e.preventDefault()
+
+			extractedText = $('#translation-form').serializeArray()
+
+			info = 
+				{
+					text: extractedText[0].value
+					from: fromL
+					to: toL
+				}
+
+			$('#translation-form').each () ->
+				this.reset();
+				return
+			console.log(info)
+			
+			$.post '/translate', info, (data) ->
+				console.log(data.serverData)
+				$('#translation-repo').text(data.serverData.translation)
+
+			return
+		return
+	addTranslator()
+
+	# Quiz Section
+
+	$('.question-drop').on 'change', () ->
+		fromL = this.value
+		console.log(fromL)
+
+	$('.start-quiz').on 'click', () ->
+		$('.question-lang').empty()
+
+
+
 	return
+
 
 

@@ -1,0 +1,18 @@
+extends layout
+
+block content
+	h1= title
+	p Welcome to #{title} 
+	nav.nav-bar 
+		a(href="/") Translate
+		a(href="/quiz") Quiz
+		a(href="/progress") Progress
+	h2.question-lang Which language would you like to study?
+		br
+		select.question-drop
+			option(value="eng") English
+			option(value="spa") Spanish
+			option(value="fra") French
+		br
+		button.btn.btn-primary.start-quiz Start Quiz!
+

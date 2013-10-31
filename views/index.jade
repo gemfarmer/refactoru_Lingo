@@ -3,6 +3,11 @@ extends layout
 block content
 	h1= title
 	p Welcome to #{title}
+	nav.nav-bar 
+		a(href="/") Translate
+		a(href="/quiz") Quiz
+		a(href="/progress") Progress
+	br
 	div.container
 		form#translation-form
 			label From: 
@@ -10,7 +15,7 @@ block content
 				option(value="eng") English
 				option(value="spa") Spanish
 				option(value="fra") French
-
+			br
 			label To: 
 			select.lang-to
 				option(value="eng") English
@@ -18,7 +23,8 @@ block content
 				option(value="fra") French
 
 			br
+			br
 			input#translation-text(type="text", name="translate-text", placeholder="hello") 
-			
-			button.btn.btn-default.submit-btn(type="submit") Submit
+			br
+			button.btn.btn-primary.submit-btn(type="submit") Submit
 			div#translation-repo
