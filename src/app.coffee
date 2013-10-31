@@ -53,9 +53,10 @@ app.post '/translate', (req, res) ->
 
 	beglobal.translations.translate data, (err, results) ->
 		if (err)
-			return console.log(err);
+			res.send({serverData: "Please submit a reall word"})
+		else
+			res.send({serverData: results})
 
-		res.send({serverData: results})
 		return
 
 	##############GET ERROR MESSAGE TO READ!!!!

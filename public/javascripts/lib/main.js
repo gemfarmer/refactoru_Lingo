@@ -15,28 +15,44 @@
         var extractedText, info;
         e.preventDefault();
         extractedText = $('#translation-form').serializeArray();
-        info = {
-          text: extractedText[0].value,
-          from: fromL,
-          to: toL
-        };
-        $('#translation-form').each(function() {
-          this.reset();
-        });
-        console.log(info);
-        $.post('/translate', info, function(data) {
-          console.log(data.serverData);
-          return $('#translation-repo').text(data.serverData.translation);
-        });
+        if (extractedText[0].value === "") {
+          $('#translation-repo').text("Cannot translate when you are so withholding...");
+          return;
+        } else {
+          console.log(extractedText);
+          info = {
+            text: extractedText[0].value,
+            from: fromL,
+            to: toL
+          };
+          $('#translation-form').each(function() {
+            this.reset();
+          });
+          console.log(info);
+          $.post('/translate', info, function(data) {
+            data.serverData.message = "Please Enter a real word";
+            if (data.serverData.translation != null) {
+              return $('#translation-repo').text(data.serverData.translation);
+            } else {
+              console.log(data.serverData);
+              return $('#translation-repo').text(data.serverData.message);
+            }
+          });
+          return;
+        }
       });
     };
     addTranslator();
     $('.question-drop').on('change', function() {
       fromL = this.value;
-      return console.log(fromL);
+      console.log(fromL);
     });
-    $('.start-quiz').on('click', function() {
-      return $('.question-lang').empty();
+    $('.start-quiz').on('click', function(e) {
+      var addQuestion;
+      $('.question-lang').empty();
+      addQuestion = '<form id="translation-form">' + '<input id="translation-text type="text" name="translate-text" placeholder="hello">' + '<br><button class="btn btn-primary.submit-btn" type="submit">Button</button>' + '</input></form>';
+      $('.question-lang').append(addQuestion);
+      addTranslator();
     });
   });
 
