@@ -8,6 +8,7 @@ routes = require('./../routes');
 user = require('./../routes/user');
 http = require('http');
 path = require('path');
+BeGlobal = require('node-beglobal');
 
 app = express();
 
@@ -29,11 +30,33 @@ if ('development' == app.get('env'))
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+
+
 app.post '/translate', (req, res) ->
-	console.log("hey")
-	data = req.body
-	console.log(data)
-	res.send({console: "log"})
+	data = {text: req.body['translate-text'], from: 'eng', to: 'fra'}
+
+
+	console.log('clicked')
+	if (data.text == "")
+		data.text = "Please Enter Text for Translation"
+
+	beglobal.translations.translate data, (err, results) ->
+		if (err)
+			return console.log(err);
+
+		res.send({serverData: results})
+		return
+
+
+	
+
+
+	return
+
+#initialize the BeGlobal API
+beglobal = new BeGlobal.BeglobalAPI({
+	api_token: '%2FxBNOQ97cfhhUBCDYpVq0A%3D%3D'
+});
 
 
 http.createServer(app).listen app.get('port'), () ->

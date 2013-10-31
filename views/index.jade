@@ -3,8 +3,22 @@ extends layout
 block content
 	h1= title
 	p Welcome to #{title}
-	form#translation-form
-		input#translation-text(type="text", name="translate-text", placeholder="hello") 
-		
-		button.btn.btn-default.submit-btn(type="submit") Submit
-		div#translation-repo
+	div.container
+		form#translation-form
+			label From: 
+			select.lang-from
+				option(value="eng") English
+				option(value="spa") Spanish
+				option(value="fra") French
+
+			label To: 
+			select.lang-to
+				option(value="eng") English
+				option(value="spa") Spanish
+				option(value="fra") French
+
+			br
+			input#translation-text(type="text", name="translate-text", placeholder="hello") 
+			
+			button.btn.btn-default.submit-btn(type="submit") Submit
+			div#translation-repo
