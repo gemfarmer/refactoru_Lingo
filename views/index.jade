@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	h1= title
+	p Welcome to #{title}
+	form#translation-form
+		input#translation-text(type="text", name="translate-text", placeholder="hello") 
+		
+		button.btn.btn-default.submit-btn(type="submit") Submit
+		div#translation-repo
